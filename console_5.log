@@ -1,0 +1,104 @@
+var a = 10;
+function add(){
+	var a = 20;
+	console.log(a);
+}
+console.log(a);
+add();
+VM352:6 10
+VM352:4 20
+undefined
+var a = 10;
+function add(){
+	
+	console.log(a);
+}
+console.log(a);
+add();
+VM417:6 10
+VM417:4 10
+undefined
+function Test(){
+	var a = 15;
+	
+
+}
+undefined
+function Test(){
+	var a = 15;
+
+	if(a >10){
+		var a = 23;
+		console.log(a);
+	}
+	console.log(a);
+}
+Test();
+VM711:6 23
+VM711:8 23
+undefined
+function Test(){
+	let a = 15;
+
+	if(a >10){
+		let a = 23;
+		console.log(a);
+	}
+	console.log(a);
+}
+Test();
+VM845:6 23
+VM845:8 15
+undefined
+function Test1(){
+	var a = 10;
+	var a = 20;
+	console.log(a);
+	let d = 10;
+	let d = 15;
+	console.log(d);
+}
+Test1();
+VM1339:6 Uncaught SyntaxError: Identifier 'd' has already been declared
+var s = 10;
+let v = 20;
+undefined
+console.log(window.s);
+VM1624:1 10
+undefined
+console.log(window.v);
+VM1646:1 undefined
+undefined
+v
+20
+function Test2(){
+	var a;
+	let d;
+	console.log(a);
+	console.log(d);
+}
+undefined
+Test2();
+VM1817:4 undefined
+VM1817:5 undefined
+undefined
+function Test2(){
+	
+	console.log(a);
+	console.log(d);
+}
+undefined
+function Test2(){
+	
+	console.log(a);
+	console.log(d);
+	var a = 10;
+	let d = 20;
+}
+Test2();
+VM1949:3 undefined
+VM1949:4 Uncaught ReferenceError: Cannot access 'd' before initialization
+    at Test2 (<anonymous>:4:14)
+    at <anonymous>:8:1
+Test2 @ VM1949:4
+(anonymous) @ VM1949:8

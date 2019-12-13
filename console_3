@@ -1,0 +1,381 @@
+function callback2(result){
+	console.log('result ',result)
+}
+
+function callback1(result,fn){
+	setTimeout(function(){
+		fn(result);
+	},3000);
+}
+
+function Test(num,fn){
+	setTimeout(function(){
+		fn(num**2,callback2);
+    },2000);
+	
+}
+Test(4,callback1);
+
+undefined
+VM97:2 result  16
+Promise
+ƒ Promise() { [native code] }
+Promise instanceof Function
+true
+
+function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve(num**2);
+    	},3000);
+	});
+	
+	return pr;
+}
+var temp = Test(4);
+console.log(temp);
+
+
+
+
+VM481:13 Promise {<pending>}__proto__: Promise[[PromiseStatus]]: "resolved"[[PromiseValue]]: 16
+undefined
+
+function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve(num**2);
+    	},3000);
+	});
+	
+	return pr;
+}
+var temp = Test(4);
+
+temp.then(function(result){
+	console.log('result :',result);
+}).catch(function(error){
+	console.log('error');
+});
+
+
+
+
+Promise {<pending>}
+VM757:15 result : 16
+
+function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			reject('error due to network');
+    	},3000);
+	});
+	
+	return pr;
+}
+var temp = Test(4);
+
+temp.then(function(result){
+	console.log('result :',result);
+}).catch(function(error){
+	console.log('error :',error);
+});
+
+
+
+
+Promise {<pending>}
+VM840:17 error : error due to network
+
+function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve(num**2);
+    	},4000);
+	});
+	
+	return pr;
+}
+
+Promise.all([Test(2),Test(3),Test(4),Test(5)]).then(function(result){
+	console.log(result);
+}).catch(function(error){
+	console.log(error);
+});
+
+
+
+
+
+
+
+
+
+
+Promise {<pending>}__proto__: Promise[[PromiseStatus]]: "resolved"[[PromiseValue]]: undefined
+VM1265:14 (4) [4, 9, 16, 25]0: 41: 92: 163: 25length: 4__proto__: Array(0)
+
+function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			if(num==3){
+				reject('error due to 3');
+			}
+			resolve(num**2);
+    	},4000);
+	});
+	
+	return pr;
+}
+
+Promise.all([Test(2),Test(3),Test(4),Test(5)]).then(function(result){
+	console.log(result);
+}).catch(function(error){
+	console.log(error);
+});
+
+
+
+Promise {<pending>}__proto__: Promise[[PromiseStatus]]: "resolved"[[PromiseValue]]: undefined
+VM1359:19 error due to 3
+
+function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve(num**2);
+    	},4000);
+	});
+	
+	return pr;
+}
+
+var temp1 = Test(3);
+
+temp1.then((result1)=>{
+	var temp2 = Test(4);
+	
+	temp2.then((result2)=>{
+		
+		var temp3 = Test(5);
+		
+		temp3.then((result3)=>{
+			console.log(result1+result2+result3);
+		}).catch();
+	}).catch();
+}).catch();
+
+
+
+
+
+Promise {<pending>}
+VM1842:23 50
+function add(){
+	return 20;
+}
+console.log(add());
+VM1941:4 20
+undefined
+async function add(){
+	
+	return 20;
+}
+console.log(add());
+
+
+VM1960:5 Promise {<resolved>: 20}__proto__: Promise[[PromiseStatus]]: "resolved"[[PromiseValue]]: 20
+undefined
+
+async function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			return(num**2);
+    	},4000);
+	});
+	
+	return pr;
+}
+
+var temp1 = await Test(3);
+var temp2 =await  Test(temp1);
+
+
+
+
+
+
+
+
+async function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			reject('error due to network');
+    	},3000);
+	});
+	
+	return pr;
+}
+var temp1 =await Test(4);
+
+var temp2 = await Test(temp);
+
+var temp3 = await Test(temp2);
+console.log(temp1+temp2+temp3);
+
+Uncaught (in promise) error due to network
+setTimeout (async)
+(anonymous) @ VM2450:5
+Test @ VM2450:4
+(anonymous) @ VM2450:12
+(anonymous) @ VM2450:19
+about:blank:1 Uncaught (in promise) error due to network
+setTimeout (async)
+(anonymous) @ VM2450:5
+Test @ VM2450:4
+(anonymous) @ VM2450:12
+(anonymous) @ VM2450:19
+
+async function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve(34,
+    	},3000);
+	});
+	
+	return pr;
+}
+var temp1 =await Test(4);
+
+var temp2 = await Test(temp);
+
+var temp3 = await Test(temp2);
+console.log(temp1+temp2+temp3);
+
+VM2472:7 Uncaught SyntaxError: Unexpected token '}'
+
+async function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve(34);
+    	},3000);
+	});
+	
+	return pr;
+}
+var temp1 =await Test(4);
+
+var temp2 = await Test(temp);
+
+var temp3 = await Test(temp2);
+console.log(temp1+temp2+temp3);
+
+VM2483:17 102
+undefined
+
+async function Test(num){
+
+	//var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			return num**2;
+    	},2000);
+	//});
+	
+	//return pr;
+}
+var temp1 =await Test(4);
+
+var temp2 = await Test(temp);
+
+var temp3 = await Test(temp2);
+console.log(temp1+temp2+temp3);
+
+VM2525:17 NaN
+undefined
+
+async function Test(num){
+
+	//var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			return num**2;
+    	},2000);
+	//});
+	
+	//return pr;
+}
+var temp1 =await Test(4);
+
+var temp2 = await Test(temp);
+
+var temp3 = await Test(temp2);
+console.log('Result : ',temp1+temp2+temp3);
+
+VM2551:17 Result :  NaN
+undefined
+
+async function Test(num){
+
+	var pr = new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve(34);
+    	},3000);
+	});
+	
+	return pr;
+}
+var temp1 =await Test(4);
+
+var temp2 = await Test(temp);
+
+var temp3 = await Test(temp2);
+
+console.log(temp1+temp2+temp3);
+
+VM2560:18 102
+undefined
+fetch
+
+ƒ fetch() { [native code] }
+var url ='https://itunes.apple.com/lookup?amgArtistId=468749,5723';
+var promise = fetch(url);
+
+
+promise.then((response)=>{
+	response.json().then((result)=>{
+		console.log('result is ',result);
+	}).catch((e)=>{
+		console.log('invalid json format ',e);
+	});
+}).catch((err)=>{
+	console.log('error in ajax call ',err);
+});
+Promise {<pending>}
+about:blank:1 Access to fetch at 'https://itunes.apple.com/lookup?amgArtistId=468749,5723' from origin 'null' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+VM3170:12 error in ajax call  TypeError: Failed to fetch
+VM3170:2 Cross-Origin Read Blocking (CORB) blocked cross-origin response https://itunes.apple.com/lookup?amgArtistId=468749,5723 with MIME type text/javascript. See https://www.chromestatus.com/feature/5629709824032768 for more details.
+(anonymous) @ VM3170:2
+var txt='tom and jerry';
+var url =`http://api.giphy.com/v1/gifs/search?api_key=vFRSFWo6g7vJ7ZAjt3DMDolU52ORTxwH&q=${txt}&%20limit=5`;
+var promise = fetch(url);
+
+
+promise.then((response)=>{
+	response.json().then((result)=>{
+		console.log('result is ',result);
+	}).catch((e)=>{
+		console.log('invalid json format ',e);
+	});
+}).catch((err)=>{
+	console.log('error in ajax call ',err);
+});
+Promise {<pending>}
+VM3246:8 result is  {data: Array(5), pagination: {…}, meta: {…}}data: (5) [{…}, {…}, {…}, {…}, {…}]0: {type: "gif", id: "bEs40jYsdQjmM", url: "https://giphy.com/gifs/bEs40jYsdQjmM", slug: "bEs40jYsdQjmM", bitly_gif_url: "https://gph.is/28KL6bf", …}analytics: {onload: {…}, onclick: {…}, onsent: {…}}bitly_gif_url: "https://gph.is/28KL6bf"bitly_url: "https://gph.is/28KL6bf"content_url: ""embed_url: "https://giphy.com/embed/bEs40jYsdQjmM"id: "bEs40jYsdQjmM"images: {downsized_large: {…}, fixed_height_small_still: {…}, original: {…}, fixed_height_downsampled: {…}, downsized_still: {…}, …}480w_still: {url: "https://media1.giphy.com/media/bEs40jYsdQjmM/480w_s.jpg", width: "480", height: "442"}height: "442"url: "https://media1.giphy.com/media/bEs40jYsdQjmM/480w_s.jpg"width: "480"__proto__: Objectconstructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()downsized: {height: "184", size: "817305", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-downsized.gif", width: "200"}downsized_large: {height: "294", size: "5418261", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-downsized-large.gif", width: "320"}downsized_medium: {height: "274", size: "3052103", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-downsized-medium.gif", width: "298"}downsized_small: {height: "146", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-downsized-small.mp4", mp4_size: "132889", width: "158"}downsized_still: {height: "184", size: "16601", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-downsized_s.gif", width: "200"}fixed_height: {height: "200", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/200.mp4", mp4_size: "672698", size: "2670127", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/200.gif", …}fixed_height_downsampled: {height: "200", size: "128210", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/200_d.gif", webp: "https://media0.giphy.com/media/bEs40jYsdQjmM/200_d.webp", webp_size: "79916", …}fixed_height_small: {height: "100", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/100.mp4", mp4_size: "130478", size: "602853", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/100.gif", …}fixed_height_small_still: {height: "100", size: "5283", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/100_s.gif", width: "109"}fixed_height_still: {height: "200", size: "21126", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/200_s.gif", width: "217"}fixed_width: {height: "184", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w.mp4", mp4_size: "487097", size: "2215954", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w.gif", …}height: "184"mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w.mp4"mp4_size: "487097"size: "2215954"url: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w.gif"webp: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w.webp"webp_size: "664836"width: "200"__proto__: Objectfixed_width_downsampled: {height: "184", size: "108182", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w_d.gif", webp: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w_d.webp", webp_size: "64506", …}fixed_width_small: {height: "92", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/100w.mp4", mp4_size: "47890", size: "527952", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/100w.gif", …}fixed_width_small_still: {height: "92", size: "4733", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/100w_s.gif", width: "100"}fixed_width_still: {height: "184", size: "18047", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/200w_s.gif", width: "200"}looping: {mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-loop.mp4", mp4_size: "12759267"}original: {frames: "135", hash: "63b7d6bf83338f0477dd8798c9ca2307", height: "368", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy.mp4", mp4_size: "4962900", …}original_mp4: {height: "440", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy.mp4", mp4_size: "4962900", width: "480"}original_still: {height: "368", size: "149325", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy_s.gif", width: "400"}preview: {height: "138", mp4: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-preview.mp4", mp4_size: "42076", width: "150"}preview_gif: {height: "68", size: "48310", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-preview.gif", width: "74"}height: "68"size: "48310"url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-preview.gif"width: "74"__proto__: Objectpreview_webp: {height: "60", size: "12122", url: "https://media0.giphy.com/media/bEs40jYsdQjmM/giphy-preview.webp", width: "66"}__proto__: Objectimport_datetime: "2016-06-21 21:03:51"is_sticker: 0rating: "g"slug: "bEs40jYsdQjmM"source: "https://imgur.com/gallery/Z2ZwFm9"source_post_url: "https://imgur.com/gallery/Z2ZwFm9"source_tld: "imgur.com"title: "tired tom and jerry GIF"trending_datetime: "2019-07-16 17:30:01"type: "gif"url: "https://giphy.com/gifs/bEs40jYsdQjmM"username: ""__proto__: Object1: {type: "gif", id: "11NLstLWNHhNC0", url: "https://giphy.com/gifs/movie-hungry-11NLstLWNHhNC0", slug: "movie-hungry-11NLstLWNHhNC0", bitly_gif_url: "https://gph.is/1ag36s2", …}2: {type: "gif", id: "6BZaFXBVPBtok", url: "https://giphy.com/gifs/bad-6BZaFXBVPBtok", slug: "bad-6BZaFXBVPBtok", bitly_gif_url: "https://gph.is/145nxxG", …}3: {type: "gif", id: "PfGZfvrugfsTS", url: "https://giphy.com/gifs/PfGZfvrugfsTS", slug: "PfGZfvrugfsTS", bitly_gif_url: "https://gph.is/1qkceCm", …}4: {type: "gif", id: "MLHzHuG02FVUQ", url: "https://giphy.com/gifs/wow-shocked-shock-MLHzHuG02FVUQ", slug: "wow-shocked-shock-MLHzHuG02FVUQ", bitly_gif_url: "https://gph.is/1UT8iCO", …}length: 5__proto__: Array(0)meta: {status: 200, msg: "OK", response_id: "3066828dcb18cf83b8f140201c41c42ef5f96789"}pagination: {total_count: 22516, count: 5, offset: 0}__proto__: Object

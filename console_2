@@ -1,0 +1,282 @@
+function add(){
+
+}
+undefined
+var add1 = function(){
+
+}
+undefined
+var add2 = ()=>{
+
+}
+undefined
+var add2 = ()=>{
+	console.log('arrow function');
+}
+undefined
+add2();
+VM247:2 arrow function
+undefined
+var add2 = ()=>console.log('arrow function');
+
+undefined
+add2();
+VM282:1 arrow function
+undefined
+typeof add2
+"function"
+add2 instanceof Function
+true
+var add2 = ()=>{
+	console.log('arrow function');
+	return 45;
+}
+undefined
+add2();
+VM386:2 arrow function
+45
+var add2 = ()=>45;
+
+undefined
+add2();
+45
+var add2 = (a,b)=>a+b;
+
+undefined
+add2(2,3);
+5
+add3 = (a,b)=>a+b;
+
+(a,b)=>a+b
+add3(2,3);
+5
+function add(a,b){
+	return a+b;
+}
+undefined
+var obj={};
+undefined
+var obj=new Object();
+undefined
+typeof Array
+"function"
+typeof Object
+"function"
+function createObject(a,b){
+	this.a=a;
+	this.b = b;
+}
+undefined
+var obj1 = new createObject(34,'brian');
+undefined
+obj1
+createObject {a: 34, b: "brian"}a: 34b: "brian"__proto__: Object
+typeof obj1
+"object"
+obj1
+createObject {a: 34, b: "brian"}a: 34b: "brian"__proto__: Object
+obj
+{}
+obj1 instanceof createObject
+true
+createObject instanceof Object;
+true
+add
+ƒ add(a,b){
+	return a+b;
+}
+var obj2 = new add(2,3);
+undefined
+obj2
+add {}__proto__: Object
+obj2.id = 101;
+101
+obj2
+add {id: 101}
+setTimeout
+ƒ setTimeout() { [native code] }
+setTimeout(fn,3000);
+VM1411:1 Uncaught ReferenceError: fn is not defined
+    at <anonymous>:1:12
+(anonymous) @ VM1411:1
+function fn(){
+	console.log('fn called from setTimeout');
+}
+setTimeout(fn,3000);
+1
+VM1474:2 fn called from setTimeout
+console.log('Start');
+VM1520:1 Start
+undefined
+function fn(){
+	console.log('fn called....');
+}
+console.log('Start');
+setTimeout(fn,3000);
+console.log('end');
+VM1672:4 Start
+VM1672:6 end
+undefined
+VM1672:2 fn called....
+function fn(){
+	console.log('fn called....');
+}
+console.log('Start');
+setTimeout(fn);
+console.log('end');
+VM1693:4 Start
+VM1693:6 end
+undefined
+VM1693:2 fn called....
+function fn(){
+	console.log('fn called....');
+}
+console.log('Start');
+setTimeout(fn,0);
+console.log('end');
+VM1702:4 Start
+VM1702:6 end
+undefined
+VM1702:2 fn called....
+function fn(){
+	console.log('fn called....');
+}
+console.log('Start');
+setTimeout(fn,0);
+console.log('end');
+VM1709:4 Start
+VM1709:6 end
+undefined
+VM1709:2 fn called....
+function fn(){
+	console.log('fn called....');
+}
+console.log('Start');
+setTimeout(fn,0);
+console.log('end1');
+console.log('end2');
+console.log('end3');
+console.log('end4');
+console.log('end5');
+console.log('end6');
+console.log('end7');
+VM1750:4 Start
+VM1750:6 end1
+VM1750:7 end2
+VM1750:8 end3
+VM1750:9 end4
+VM1750:10 end5
+VM1750:11 end6
+VM1750:12 end7
+undefined
+VM1750:2 fn called....
+function fn(){
+	console.log('fn called....');
+}
+console.log('Start');
+setTimeout(fn,0);
+console.log('end1');
+for(var i=1;i<100000;i++){
+	for(var j=1;j<100000;j++){
+		
+	}
+}
+VM1897:4 Start
+VM1897:6 end1
+undefined
+VM1897:2 fn called....
+function Test(num){
+	
+		return num**2;
+	
+}
+var temp = Test(4);
+console.log(temp);
+VM2133:7 16
+undefined
+function Test(num){
+	var temp  = function(){
+		return num**2;
+    }
+	return temp;
+}
+var temp = Test(4);
+console.log(temp);
+VM2229:8 ƒ (){
+		return num**2;
+    }
+undefined
+function Test(num){
+	var temp  = function(){
+		return num**2;
+    }
+	return temp();
+}
+var temp = Test(4);
+console.log(temp);
+VM2245:8 16
+undefined
+function Test(num){
+	setTimeout(function(){
+		return num**2;
+    },2000);
+	
+}
+var temp = Test(4);
+console.log(temp);
+VM2407:8 undefined
+undefined
+function callback1(result){console.log('result ',result)}
+function Test(num,callback1){
+	setTimeout(function(){
+		callback1(num**2);
+    },2000);
+	
+}
+Test(4);
+
+undefined
+VM2626:4 Uncaught TypeError: callback1 is not a function
+    at <anonymous>:4:3
+(anonymous) @ VM2626:4
+setTimeout (async)
+Test @ VM2626:3
+(anonymous) @ VM2626:8
+function callback2(result){
+	console.log('result ',result)
+}
+
+function callback1(result,fn){
+	setTimeout(fn,3000);
+}
+
+function Test(num,fn){
+	setTimeout(function(){
+		fn(num**2,callback2);
+    },2000);
+	
+}
+Test(4,callback1);
+
+undefined
+VM2937:2 result  undefined
+function callback2(result){
+	console.log('result ',result)
+}
+
+function callback1(result,fn){
+	setTimeout(function(){
+		fn(result);
+	},3000);
+}
+
+function Test(num,fn){
+	setTimeout(function(){
+		fn(num**2,callback2);
+    },2000);
+	
+}
+Test(4,callback1);
+
+undefined
+VM3063:2 result  16
